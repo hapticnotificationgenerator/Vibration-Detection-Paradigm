@@ -1,34 +1,73 @@
-*{
-    padding:0;
-    margin:0;
-    text-align:center;
-    font-family: 'Roboto';
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tactile Perception</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
 
-h2{
-    margin-bottom:3%;
-}
+<div class = "loading" id="load_id">
+    <h2 id = "sync_text">Synchronising</h2>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+</div>
 
-#myProgress {
-    width: 100%;
-    background-color: lightgray;
-}
+<div class="loading" id="content">
+    <h2>Session Synchronised</h2>
+    <p>Please place your device in your pocket.</p>
+    <p>You may return to the study.</p>
+</div>
 
-#myBar {
-    width: 1%;
-    height: 30px;
-    background-color: green;
-}
+<script>
 
-#content{
-    display:none;
-}
+    window.onload = function(){
+        move();
+    };
 
-.loading{
-    font-size:2em;
-    width:50%;
-    padding-top:50%;
-    padding-bottom:30%;
-    padding-left:25%;
-    padding-right:25%;
-}
+    let i = 0;
+    let j = 0;
+
+    setInterval(function(){
+        let sync_text = document.getElementById("sync_text");
+        if (i < 3) {
+            sync_text.innerHTML += ".";
+        }
+        else {
+            sync_text.innerHTML = "Synchronising.";
+            i = 0;
+        }
+        i++;
+    }, 900);
+
+    function move() {
+        if (j === 0) {
+            j = 1;
+            let elem = document.getElementById("myBar");
+            let width = 1;
+            let id = setInterval(frame, 30);
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                    j = 0;
+                    document.getElementById('load_id').style.display = "none";
+                    document.getElementById('content').style.display = "block";
+                } else {
+                    width++;
+                    elem.style.width = width + "%";
+                }
+            }
+        }
+    }
+
+</script>
+
+<script>
+
+</script>
+
+</body>
+</html>
